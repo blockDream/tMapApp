@@ -1,0 +1,1 @@
+<view class="standard-map"><view class="search-box"><u-input wx:if="{{a}}" u-i="9d53119e-0" bind:__l="__l" u-p="{{a}}"></u-input></view><view class="tabs-box"><u-sticky wx:if="{{c}}" u-s="{{['d']}}" u-i="9d53119e-1" bind:__l="__l" u-p="{{c}}"><u-tabs wx:if="{{b}}" u-i="9d53119e-2,9d53119e-1" bind:__l="__l" u-p="{{b}}"></u-tabs></u-sticky></view></view>

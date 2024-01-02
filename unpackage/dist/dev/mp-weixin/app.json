@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/mapList/mapList",
+    "pages/mapList/cpns/leftletMap/leftletMap",
+    "pages/myHome/myHome",
+    "pages/index/cpns/layer-panel/cpns/standard-map/index",
+    "pages/index/cpns/layer-panel/cpns/theme-layer/index",
+    "pages/index/cpns/layer-panel/cpns/atlas/atlas",
+    "pages/index/cpns/layer-panel/cpns/spacetimePhoto/spacetimePhoto",
+    "pages/index/cpns/layer-panel/cpns/surveyor/surveyor",
+    "pages/index/cpns/layer-panel/cpns/surveyor/cpns/place/place",
+    "pages/index/cpns/layer-panel/cpns/surveyor/cpns/address/address",
+    "pages/index/cpns/layer-panel/cpns/surveyor/cpns/antique/antique",
+    "pages/index/cpns/layer-panel/cpns/surveyor/cpns/tourism/tourism"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "天地图",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#0F8EE9",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/images/tabs/home.png",
+        "selectedIconPath": "static/images/tabs/home-active.png"
+      },
+      {
+        "pagePath": "pages/mapList/mapList",
+        "text": "周边",
+        "iconPath": "static/images/tabs/map.png",
+        "selectedIconPath": "static/images/tabs/map-active.png"
+      },
+      {
+        "pagePath": "pages/myHome/myHome",
+        "text": "我的",
+        "iconPath": "static/images/tabs/center.png",
+        "selectedIconPath": "static/images/tabs/center-active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置"
+    }
+  },
+  "tPlus": {
+    "tianditu": {
+      "apiKey": "f5c6e3cb59fa2c5c10a4279fa232d65c",
+      "sdkBaseUrl": "http://api.tianditu.gov.cn/",
+      "imgBaseUrl": "http://t2.tianditu.gov.cn/",
+      "epsg": "EPSG:4326"
+    }
+  },
+  "usingComponents": {}
+}

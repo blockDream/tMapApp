@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "v-leaflet": "../../../../wxcomponents/zhgeo/zhgeo-component"
+  }
+}

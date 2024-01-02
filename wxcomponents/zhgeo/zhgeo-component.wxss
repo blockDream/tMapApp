@@ -1,0 +1,205 @@
+/* components/leaflet/leaflet.wxss */
+@import './plugins/loadp.wxss';
+
+.map {
+    position: fixed;
+}
+
+.leaflet-pane {
+    position:absolute;
+}
+
+.leaflet-layer {
+    position: absolute;
+}
+
+.leaflet-tile {
+    position: absolute;
+}
+
+.leaflet-image-item {
+  position: absolute;
+}
+
+
+.leaflet-popup-content {
+    font-size: 8px;
+    background-color: lightseagreen;
+    border-radius: 5px;
+}
+
+.leaflet-popup-content-triangle {
+	width:0;
+    height:0;
+	border-right:5px solid transparent;
+	border-left:5px solid transparent;
+	border-top:12px solid lightseagreen;
+}
+
+.leaflet-popup-content-pane {
+    text-align: center;
+}
+
+.leaflet-control-zoom {
+    width: 38px; 
+    height: 38px; 
+    margin-top: 10px;
+}
+
+.leaflet-top  {
+  z-index: 999; 
+  padding: 0px; 
+  position: absolute; 
+  top: 15px;
+  align-items:center;
+  justify-content:center;
+  display:flex;
+  flex-direction: column;
+}
+
+.leaflet-right {
+  z-index: 999; 
+  padding: 0px; 
+  position: absolute; 
+  right: 10px;
+  align-items:center;
+  justify-content:center;
+  display:flex;
+  flex-direction: column;
+}
+
+.leaflet-left {
+  z-index: 999; 
+  padding: 0px; 
+  position: absolute; 
+  left: 10px;
+  align-items:center;
+  justify-content:center;
+  display:flex;
+  flex-direction: column;
+}
+
+.leaflet-bottom  {
+  z-index: 999; 
+  padding: 0px; 
+  position: absolute; 
+  bottom: 80px;
+  align-items:center;
+  justify-content:center;
+  display: flex;
+  flex-direction: column;
+}
+
+.leafletwx-marker-footer {
+    background-color:white;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    border: 3px solid;
+}
+
+.leafletwx-marker-legend {
+    font-size: 14px;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+}
+
+.leafletwx-marker-footer-triangle-left {
+	width:0;
+    height:0;
+	border-top:5px solid transparent;
+	border-bottom:5px solid transparent;
+	border-left:12px solid;
+}
+
+.leafletwx-marker-footer-triangle-right {
+	width:0;
+    height:0;
+	border-top:5px solid transparent;
+	border-bottom:5px solid transparent;
+	border-right:12px solid;
+}
+
+.leafletwx-marker-footer-triangle-top {
+	width:0;
+    height:0;
+	border-left:5px solid transparent;
+	border-right:5px solid transparent;
+	border-top:12px solid;
+}
+
+.leafletwx-marker-footer-triangle-bottom {
+	width:0;
+    height:0;
+	border-left:5px solid transparent;
+	border-right:5px solid transparent;
+	border-bottom:12px solid;
+}
+
+.leafletwx-marker-badge-left {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: yellowgreen;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.leafletwx-marker-badge-right {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: yellowgreen;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.leaflet-control-circle {
+    background-color:white;
+    width: 32px!important;
+    height: 32px!important;
+    border-radius: 20px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+}
+
+.leafletwx-multimap-btn {
+    background-color:white;
+    font-size: 14px;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+}
+
+.leafletwx-multimap-btn-checked {
+    background-color:rgb(81, 202, 250);
+}
+
+.leafletwx-gray-img { 
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+    opacity:0.7;
+}

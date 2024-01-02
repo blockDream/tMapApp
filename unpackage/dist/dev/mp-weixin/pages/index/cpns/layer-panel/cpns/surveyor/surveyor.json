@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我是测绘师",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-image": "../../../../../../uni_modules/uview-plus/components/u-image/u-image"
+  }
+}

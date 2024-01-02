@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no"/>
+    <title>选择位置</title>
+    <script type="text/javascript" src="http://api.tianditu.gov.cn/api?v=4.0&tk=f5c6e3cb59fa2c5c10a4279fa232d65c"></script>
+	<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+	
+   <script>
+	   
+        var map;
+        var zoom = 16;
+		var lon;
+		var lat;
+        function onLoad() {
+			setTimeout(()=>{
+				
+				var T = window.T;
+				debugger
+				var imageURL = 'https://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX=%7Bz%7D&TILEROW=%7By%7D&TILECOL=%7Bx%7D&tk=f5c6e3cb59fa2c5c10a4279fa232d65c';
+				var lay = new T.TileLayer(imageURL, {
+					minZoom: 1,
+					maxZoom: 16
+				});
+				var config = {
+					layers: [lay]
+				};
+			
+				this.map = new T.Map('mapDiv', config); // 地图实例
+				this.map.centerAndZoom(new T.LngLat(116.40769, 39.89945), 16);
+			
+				// //允许鼠标双击放大地图
+				this.map.enableScrollWheelZoom();
+			
+				//创建地图图层对象
+				let mapTypeSelect = [{
+						'title': '地图', //地图控件上所要显示的图层名称
+						'icon': 'http://api.tianditu.gov.cn/v4.0/image/map/maptype/vector.png', //地图控件上所要显示的图层图标（默认图标大小80x80）
+						'layer': window.TMAP_NORMAL_MAP //地图类型对象，即MapType。
+					},
+					{
+						'title': '卫星',
+						'icon': ' http://api.tianditu.gov.cn/v4.0/image/map/maptype/satellite.png',
+						'layer': window.TMAP_SATELLITE_MAP
+					}, {
+						'title': '卫星混合',
+						'http': 'api.tianditu.gov.cn/v4.0/image/map/maptype/satellitepoi.png',
+						'layer': 'TMAP_HYBRID_MAP'
+					}, {
+						'title': '地形',
+						'icon': ' http://api.tianditu.gov.cn/v4.0/image/map/maptype/terrain.png',
+						'layer': window.TMAP_TERRAIN_MAP
+					},
+					{
+						'title': '地形混合',
+						'icon': ' http://api.tianditu.gov.cn/v4.0/image/map/maptype/terrainpoi.png',
+						'layer': window.TMAP_TERRAIN_HYBRID_MAP
+					}
+				];
+				var ctrl = new T.Control.MapType({
+					mapTypes: mapTypeSelect
+				}); // 初始化地图类型选择控件
+			
+				this.map.addControl(ctrl); //添加地图选择控件
+			
+				this.map.setMapType(window.TMAP_HYBRID_MAP); // 设置地图位地星混合图层
+					},1000)
+        }
+		//取url中的参数值
+		function getQuery(name) {
+		    // 正则：[找寻'&' + 'url参数名字' = '值' + '&']（'&'可以不存在）
+		    let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    let r = window.location.search.substr(1).match(reg);
+		    console.log(r);
+		    if(r != null) {
+		        // 对参数值进行解码
+		        return decodeURIComponent(r[2]);
+		    }
+		    return null;
+		}
+		function addMapClick()
+			{
+				removeMapClick();
+				map.addEventListener("click",MapClick);
+			}
+		
+			function removeMapClick()
+			{
+				map.removeEventListener("click",MapClick);
+			}
+			
+			function MapClick(e)
+			{
+				map.clearOverLays();
+				 var marker = new T.Marker(new T.LngLat(e.lnglat.getLng(), e.lnglat.getLat()));
+				            //向地图上添加标注
+				map.addOverLay(marker);
+				// alert(e.lnglat.getLng()+","+e.lnglat.getLat());
+				lon = e.lnglat.getLng();
+				lat = e.lnglat.getLat();
+			}
+			function callBackClick()
+			{
+				uni.postMessage({
+				    data: {
+				        action: "1111",
+						lon,
+						lat,
+				    }
+				});
+				 uni.getEnv(function(res) {
+				            console.log('当前环境：' + JSON.stringify(res));
+				        });
+			}
+    </script>
+</head>
+
+<body onLoad="onLoad()">
+    <div id="mapDiv" style="width:100%; height:100vh"></div>
+	<div style="position:absolute;top: 450px;">
+		<input type="button" value="确认" onClick="callBackClick();"/>
+		<!-- <p>本示例演示如何给地图注册点击事件。</p>
+			<div>
+				地图点击事件：
+				<input type="button" value="注册" onClick="addMapClick();"/>
+				<input type="button" value="移除" onClick="removeMapClick();"/>
+				<input type="button" value="通讯" onClick="callBackClick();"/>
+			</div> -->
+	</div>
+</body>
+</html>

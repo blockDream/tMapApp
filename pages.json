@@ -1,0 +1,166 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "天地图·北京"
+			}
+		},
+		{
+		    "path": "pages/mapList/mapList",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "天地图·北京",
+		        "enablePullDownRefresh": false,
+				"usingComponents": {
+					"v-leaflet": "/wxcomponents/zhgeo/zhgeo-component"
+				}
+		    }
+		},
+		{
+			"path": "pages/mapList/cpns/leftletMap/leftletMap",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "",
+			    "enablePullDownRefresh": false,
+				"usingComponents": {
+					"v-leaflet": "/wxcomponents/zhgeo/zhgeo-component"
+				}
+			}
+		},
+        {
+            "path" : "pages/myHome/myHome",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "天地图·北京",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/standard-map/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "标准地图",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/theme-layer/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "专题图层",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/atlas/atlas",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "图集图册",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/spacetimePhoto/spacetimePhoto",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "时空照相馆",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/surveyor/surveyor",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我是测绘师",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/surveyor/cpns/place/place",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "地点",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/surveyor/cpns/address/address",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "地址",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/surveyor/cpns/antique/antique",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "文物",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/cpns/layer-panel/cpns/surveyor/cpns/tourism/tourism",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "文旅",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"usingComponents": {
+		"mp-loading": "weui-miniprogram/loading/loading"
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "天地图",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#333",
+		"selectedColor": "#0F8EE9",
+		"backgroundColor": "#fff",
+		"borderStyle": "white",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/images/tabs/home.png",
+				"selectedIconPath": "static/images/tabs/home-active.png"
+			},
+			{
+				"pagePath": "pages/mapList/mapList",
+				"text": "周边",
+				"iconPath": "static/images/tabs/map.png",
+				"selectedIconPath": "static/images/tabs/map-active.png"
+			},
+			{
+				"pagePath": "pages/myHome/myHome",
+				"text": "我的",
+				"iconPath": "static/images/tabs/center.png",
+				"selectedIconPath": "static/images/tabs/center-active.png"
+			}
+		]
+	},
+	"uniIdRouter": {},
+	// "easycom": {
+	// 	"autoscan": true,
+	// 	"custom": {
+	// 		"^u-(.*)":"@/uni_modules/uview-plus/components/u-$1.vue"
+	// 	}
+	// }
+	"easycom": {
+	    "^u-(.*)":"@/uview-plus/components/u-$1.vue"
+	}
+}

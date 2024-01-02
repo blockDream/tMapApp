@@ -1,0 +1,106 @@
+<!--components/leaflet/leaflet.wxml-->
+<view class="map map-home leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" style="width: {{mapWidth}}px; height: {{mapHeight}}px; top: {{mapTop}}px; left: {{mapLeft}}px" bindtap="processEvent" bindtouchstart="minaTouch.start" catchtouchmove="minaTouch.move" bindtouchend="minaTouch.end">
+    <view class="leaflet-pane leaflet-map-pane" style="top: {{mapPane.top}}px; left: {{mapPane.left}}px; width: {{mapWidth}}px; height: {{mapHeight}}px;">
+        <view class="leaflet-pane leaflet-tile-pane">
+            <view wx:for="{{tileLayers}}" wx:key="_leaflet_id" wx:for-item="levelManager" class="leaflet-layer " style="z-index: 1; opacity: 1;">
+              <view id="{{levelItem.elemid}}" wx:for="{{levelManager.levelArray}}" wx:key="index" wx:for-item="levelItem" class="leaflet-pane leaflet-tile-anim-proxy" style="width: {{mapWidth}}px; height: {{mapHeight}}px;">
+                <view class="leaflet-tile-container leaflet-zoom-animated" style="z-index: {{levelItem.zIndex}}; top: {{levelItem.top}}px; left: {{levelItem.left}}px; width: {{mapWidth}}px; height: {{mapHeight}}px;">
+                    <image mode="aspectFit" lazy-load="true" class="leaflet-tile leaflet-tile-loaded" wx:for="{{levelItem.tiles}}" wx:key="_leaflet_id" wx:for-item="tileItem" src="{{tileItem.src}}" style="width: {{tileItem.width}}; height: {{tileItem.height}}; top: {{tileItem.top}}px; left: {{tileItem.left}}px"></image>
+                </view>
+              </view>
+            </view>
+        </view>
+        
+        <view class="leaflet-pane leaflet-overlay-pane">
+          <canvas id="leafletwx-overlay-canvas" class="leaflet-zoom-animated" type="2d" style="z-index: 99; width: {{overlayCanvasWidth}}px; height: {{overlayCanvasHeight}}px; top: {{overlayCanvasTop}}px; left: {{overlayCanvasLeft}}px" bindtap="processCanvasEvent"></canvas>
+        </view>
+        <view class="leaflet-pane leaflet-image-layer" style="z-index: 100;">
+          <image id="{{'leaflet-image-item-' + imgItem._leaflet_id}}" class="leaflet-image-item" mode="scaleToFill" lazy-load="true" wx:for="{{imageLayers}}" wx:for-item="imgItem" wx:key="_leaflet_id" data-lid="{{imgItem._leaflet_id}}" src="{{imgItem.src}}" style="top: {{imgItem.top}}px; left: {{imgItem.left}}px; width: {{imgItem.width}}px; height: {{imgItem.height}}px;" bindtap="processImageOverlayEvent"></image>
+        </view>
+        <div wx:if="{{osmb}}" class="leaflet-pane leaflet-overlay-pane osmb-container" style="left: {{osmb.left}}px; top: {{osmb.top}}px;">
+          <canvas data-osmbt="shadows" class="osmb-layer osmb-shadows" type="2d" style="z-index: 98; width: {{osmb.width}}px; height: {{osmb.height}}px; opacity: {{osmb.opacityShadows}};"></canvas>
+          <canvas data-osmbt="simplified" class="osmb-layer osmb-simplified" type="2d" style="z-index: 98; width: {{osmb.width}}px; height: {{osmb.height}}px; opacity: {{osmb.opacitySimplified}};"></canvas>
+          <canvas data-osmbt="buildings" class="osmb-layer osmb-buildings" type="2d" style="z-index: 98; width: {{osmb.width}}px; height: {{osmb.height}}px; opacity: {{osmb.opacityBuildings}};"></canvas>
+          <canvas data-osmbt="picking" class="osmb-layer osmb-picking" type="2d" style="z-index: 98; width: {{osmb.width}}px; height: {{osmb.height}}px; opacity: {{osmb.opacityPicking}};"></canvas>
+        </div>
+        <view class="leaflet-pane leaflet-shadow-pane"></view>
+        <view class="leaflet-pane leaflet-marker-pane">
+
+          <block wx:for="{{markers}}" wx:key="_leaflet_id" wx:for-item="markerItem">
+            <block wx:if="{{markerItem && markerItem._leaflet_id}}">
+              <view wx:if="{{markerItem.isClusterMarker}}" class="{{markerItem.className}}" data-iconid="{{markerItem._leaflet_id}}" catchtap="processMarkerEvent" id="{{'marker-' + markerItem._leaflet_id}}" style="z-index: {{markerItem.zIndex}}; position: absolute; top: {{markerItem.top}}px; left: {{markerItem.left}}px; margin-top: {{- markerItem.height/2}}px;margin-left: {{-markerItem.width/2}}px;width: {{markerItem.width}}px;">
+                <view>
+                  <text>{{markerItem.text}}</text>
+                </view>
+              </view>
+              <view wx:else class="leaflet-marker-item" data-iconid="{{markerItem._leaflet_id}}" catchtap="processMarkerEvent" id="{{'marker-' + markerItem._leaflet_id}}" style="z-index: {{markerItem.zIndex}}; position: absolute; top: {{markerItem.top}}px; left: {{markerItem.left}}px; margin-top: {{- (markerItem.showInCenter ? markerItem.height/2 : markerItem.height)}}px;margin-left: {{-markerItem.width/2}}px;width: {{markerItem.width}}px;">
+                  <text wx:if="{{markerItem.left_badge != null}}" style="z-index: {{markerItem.zIndex+2}};" class="leafletwx-marker-badge-left">{{markerItem.left_badge}}</text>
+                  <text wx:if="{{markerItem.right_badge != null}}" style="z-index: {{markerItem.zIndex+2}};" class="leafletwx-marker-badge-right">{{markerItem.right_badge}}</text>
+                  <image wx:if="{{markerItem.src != null}}" src="{{markerItem.src}}" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" style="z-index: {{markerItem.zIndex}}; width: {{markerItem.width}}px; height: {{markerItem.height}}px;"></image>
+                  <view wx:else>
+                    <view wx:if="{{markerItem.footerLegend==null}}" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive leafletwx-marker-footer" style="border-color: {{markerBorderColor}}; z-index: {{markerItem.zIndex}}; width: {{markerItem.width}}px;">{{markerItem.title}}</view>
+                    <view wx:else class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive leafletwx-marker-legend" style="color: {{markerItem.footerLegend.font_color}}; background-image: url('{{markerItem.footerLegend.icon}}'); background-size: 100% 100%; z-index: {{markerItem.zIndex}}; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px;">{{markerItem.title}}</view>  
+                  </view>              
+                  <block wx:if="{{markerItem.showFooter && markerItem.src != null}}">
+                      <view wx:if="{{markerItem.footerPosition==0}}" style="z-index: {{markerItem.zIndex+1}}; margin-left: {{-markerItem.footerWidth - 15}}px; margin-top: {{-(markerItem.height+markerItem.footerHeight)/2-10}}px;">
+                        <view>
+                          <view wx:if="{{markerItem.footerLegend==null}}" class="leafletwx-marker-footer" style="border-color: {{markerBorderColor}}; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px;">{{markerItem.title}}</view>
+                          <view wx:else class="leafletwx-marker-legend" style="color: {{markerItem.footerLegend.font_color}}; background-image: url('{{markerItem.footerLegend.icon}}'); background-size: 100% 100%; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px; margin-top: {{-(markerItem.footerHeight)/2-2}}px;">{{markerItem.title}}</view>
+                        </view>
+                        <view class="leafletwx-marker-footer-triangle-left" style="border-left-color: {{markerItem.footerLegend==null?markerBorderColor:markerItem.footerLegend.triangle_color}}; margin-left: {{markerItem.footerWidth+5}}px; margin-top: {{-(markerItem.footerHeight)/2-2}}px;"></view>
+                      </view>
+                      <view wx:elif="{{markerItem.footerPosition==1}}" style="z-index: {{markerItem.zIndex+1}}; margin-left: -5px; margin-top: {{-markerItem.height*2 - markerItem.footerHeight + 15}}px;">
+                        <view>
+                          <view wx:if="{{markerItem.footerLegend==null}}" class="leafletwx-marker-footer" style="border-color: {{markerBorderColor}}; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px; margin-left: {{-markerItem.footerWidth/2+20}}px;">{{markerItem.title}}</view>
+                          <view wx:else class="leafletwx-marker-legend" style="color: {{markerItem.footerLegend.font_color}}; background-image: url('{{markerItem.footerLegend.icon}}'); background-size: 100% 100%; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px; margin-left: {{-markerItem.footerWidth/2+20}}px;">{{markerItem.title}}</view>
+                        </view>
+                        <view class="leafletwx-marker-footer-triangle-top" style="border-top-color: {{markerItem.footerLegend==null?markerBorderColor:markerItem.footerLegend.triangle_color}}; margin-left: {{markerItem.width/2}}px;"></view>
+                      </view>
+                      <view wx:elif="{{markerItem.footerPosition==2}}" style="z-index: {{markerItem.zIndex+1}}; margin-left: {{markerItem.width}}px; margin-top: {{-markerItem.height+5}}px;">
+                          <view class="leafletwx-marker-footer-triangle-right" style="border-right-color: {{markerItem.footerLegend==null?markerBorderColor:markerItem.footerLegend.triangle_color}};"></view>
+                          <view>
+                            <view wx:if="{{markerItem.footerLegend==null}}" class="leafletwx-marker-footer" style="border-color: {{markerBorderColor}}; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px; margin-left: 10px; margin-top: {{-(markerItem.footerHeight)/2-2}}px;">{{markerItem.title}}</view>
+                            <view wx:else class="leafletwx-marker-legend" style="color: {{markerItem.footerLegend.font_color}}; background-image: url('{{markerItem.footerLegend.icon}}'); background-size: 100% 100%; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px; margin-left: 10px; margin-top: {{-(markerItem.footerHeight)/2-2}}px;">{{markerItem.title}}</view>
+                          </view>
+                      </view>
+                      <view wx:else style="z-index: {{markerItem.zIndex+1}}; margin-left: -10px;">
+                        <view class="leafletwx-marker-footer-triangle-bottom" style="border-bottom-color: {{markerItem.footerLegend==null?markerBorderColor:markerItem.footerLegend.triangle_color}}; margin-left: {{markerItem.width/2+5}}px; margin-top: -10px;"></view>
+                        <view>
+                          <view wx:if="{{markerItem.footerLegend==null}}" class="leafletwx-marker-footer" style="border-color: {{markerBorderColor}}; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px; margin-left: {{-markerItem.footerWidth/2+20}}px;">{{markerItem.title}}</view>
+                          <view wx:else class="leafletwx-marker-legend" style="color: {{markerItem.footerLegend.font_color}}; background-image: url('{{markerItem.footerLegend.icon}}'); background-size: 100% 100%; width: {{markerItem.footerWidth}}px; height: {{markerItem.footerHeight}}px; margin-left: {{-markerItem.footerWidth/2+20}}px;">{{markerItem.title}}</view>
+                        </view>
+                      </view>
+                  </block>
+              </view>
+            </block>
+          </block>
+
+        </view>
+        <view class="leaflet-pane leaflet-tooltip-pane"></view>
+        <view class="leaflet-pane leaflet-popup-pane">
+            <view wx:for="{{popups}}" wx:key="unique" wx:for-item="popupItem" class="leaflet-popup-content-wrapper" style="z-index: {{popupItem.zIndex}}; position: absolute; bottom: {{popupItem.bottom+popupItem.icon_height/2}}px; left: {{popupItem.left}}px; width: {{popupItem.width}}px;">
+                <view id="{{'popup-' + popupItem._leaflet_id}}" wx:if="{{popupItem.show}}">                
+                    <view class="leaflet-popup-content">
+                        <rich-text class="leaflet-popup-content-pane" nodes="{{popupItem.text}}"></rich-text>
+                    </view>
+                    <view class="leaflet-popup-content-triangle" style="margin-left: {{popupItem.width / 2}}px;"></view>  
+                </view>
+            </view>
+        </view>
+        <view class="leaflet-proxy leaflet-zoom-animated"></view>
+    </view>
+    <view class="leaflet-control-container">
+        <view class="leaflet-top leaflet-left">
+            <view class="leaflet-control-zoom leaflet-bar leaflet-control">
+                <image wx:if="{{compassRotateAngle != null}}" class="leaflet-left-top leaflet-control-zoom" style="top: 10px; transform: rotate({{compassRotateAngle}}deg)" src="{{defaultIcons.compass}}"></image>
+            </view>
+        </view>
+        <view class="leaflet-top leaflet-right">
+        </view>
+        <view class="leaflet-bottom leaflet-left">
+            <image class="leaflet-left-bottom leaflet-control-zoom leaflet-control-circle {{zoomInState?'':'leafletwx-gray-img'}}" style="bottom: 180px;" src="{{defaultIcons.zoomin}}" bindtap="processZoomInEvent"></image>
+            <image class="leaflet-left-bottom leaflet-control-zoom leaflet-control-circle {{zoomOutState?'':'leafletwx-gray-img'}}" style="bottom: 140px;" src="{{defaultIcons.zoomout}}" bindtap="processZoomOutEvent"></image>
+            <image class="leaflet-left-bottom leaflet-control-zoom leaflet-control-circle" style="bottom: 100px;" src="{{defaultIcons.location}}" bindtap="showLocation"></image>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "标准地图",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-input": "../../../../../../uni_modules/uview-plus/components/u-input/u-input",
+    "u-tabs": "../../../../../../uni_modules/uview-plus/components/u-tabs/u-tabs",
+    "u-sticky": "../../../../../../uni_modules/uview-plus/components/u-sticky/u-sticky"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="swiper-nav-box data-v-26e97d89"><u-swiper wx:if="{{a}}" class="data-v-26e97d89" u-i="26e97d89-0" bind:__l="__l" u-p="{{a}}"></u-swiper></view>

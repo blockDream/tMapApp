@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "u-tabs": "../../../../uni_modules/uview-plus/components/u-tabs/u-tabs",
+    "u-sticky": "../../../../uni_modules/uview-plus/components/u-sticky/u-sticky"
+  }
+}

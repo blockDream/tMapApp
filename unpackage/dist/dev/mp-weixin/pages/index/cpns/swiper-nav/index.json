@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "u-swiper": "../../../../uni_modules/uview-plus/components/u-swiper/u-swiper"
+  }
+}
